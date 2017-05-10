@@ -1,3 +1,11 @@
 <resources>
 	<string name="app_name">EveryProjectFundamentals</string>
+	<string name="loading_articles">Ładowanie artykułów...</string>
+	<string name="error_connection_problem">Problem z połączeniem internetowym</string>
+	<string name="error_try_again_later">Spróbuj ponownie później...</string>
+	<string name="error_no_articles_to_show">Brak artykułów do wyświetlenia</string>
+	<string name="problem_z_internetem">Problem z internetem!</string>
+	<string name="error_check_internet_connection">Sprawdź czy masz dostęp do internetu</string>
+	<string name="try_again">Spróbuj ponownie</string>
+	<string name="error_unknown">Wystąpił nieznany błąd</string>
 </resources>

@@ -1,0 +1,60 @@
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/layout_item_channel"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	app:cardCornerRadius="4dp"
+	app:cardUseCompatPadding="true">
+
+	<LinearLayout
+		android:id="@+id/container_item_channel"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="?attr/selectableItemBackground"
+		android:orientation="vertical">
+
+		<ImageView
+			android:id="@+id/image_cover_item_channel"
+			android:layout_width="match_parent"
+			android:layout_height="80dp"
+			android:scaleType="centerCrop" />
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:paddingEnd="12dp"
+			android:paddingLeft="12dp"
+			android:paddingRight="12dp"
+			android:paddingStart="12dp"
+			android:paddingTop="12dp">
+
+			<TextView
+				android:id="@+id/text_title_item_channel"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				tools:text="Title" />
+
+			<TextView
+				android:id="@+id/text_post_count_item_channel"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:drawablePadding="4dp"
+				tools:text="324" />
+
+		</LinearLayout>
+
+		<org.sufficientlysecure.htmltextview.HtmlTextView
+			android:id="@+id/text_description_item_channel"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:ellipsize="end"
+			android:maxLines="3"
+			android:padding="12dp"
+			tools:text="Lorem ipsum nomen omen" />
+
+	</LinearLayout>
+</android.support.v7.widget.CardView>
