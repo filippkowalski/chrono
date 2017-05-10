@@ -41,15 +41,20 @@ public abstract class EndlessListPresenter<D> implements Presenter, DataDownload
 
 		@Override
 		public void onResponse(Call<EndlessListResponse<D>> call, Response<EndlessListResponse<D>> response) {
+			contract.showLoadingView(false);
+			contract.showErrorView(ErrorTypeGenerator.TYPE_UNSET, false);
+
 			if (response.isSuccessful()) {
 				EndlessListResponse<D> listResponse = response.body();
-				contract.onDataLoaded(listResponse.getData());
-				contract.setHasLoadedAllData(listResponse.getNext() == null);
+				if (listResponse.getCount() == 0) {
+					contract.showErrorView(ErrorTypeGenerator.TYPE_NO_CONTENT, true);
+				} else {
+					contract.onDataLoaded(listResponse.getData());
+					contract.setHasLoadedAllData(listResponse.getNext() == null);
+				}
 			} else {
 				contract.showErrorView(ErrorTypeGenerator.TYPE_NO_CONTENT, true);
 			}
-			contract.showLoadingView(false);
-			contract.showErrorView(ErrorTypeGenerator.TYPE_UNSET, false);
 		}
 
 		@Override
