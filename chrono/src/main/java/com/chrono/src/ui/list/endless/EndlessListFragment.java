@@ -165,7 +165,9 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 	@Override
 	public void showErrorView(@ErrorTypeGenerator.ErrorType int errorType, boolean show) {
 		VisibilityUtils.show(show, errorView);
-		errorView.setError(errorType);
+		if (show) {
+			errorView.setError(errorType);
+		}
 		setRefreshingState(false);
 	}
 
