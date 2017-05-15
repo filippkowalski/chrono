@@ -106,7 +106,7 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 		recyclerView.addItemDecoration(getItemDecorator());
 	}
 
-	private DefaultSpacingItemDecoration getItemDecorator() {
+	protected DefaultSpacingItemDecoration getItemDecorator() {
 		int defaultListSpacing = getResources().getDimensionPixelSize(R.dimen.list_spacing);
 		return new DefaultSpacingItemDecoration(defaultListSpacing);
 	}
