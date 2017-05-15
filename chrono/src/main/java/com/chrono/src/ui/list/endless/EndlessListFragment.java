@@ -103,9 +103,12 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 		recyclerView.setLayoutManager(layoutManager);
+		recyclerView.addItemDecoration(getItemDecorator());
+	}
 
+	private DefaultSpacingItemDecoration getItemDecorator() {
 		int defaultListSpacing = getResources().getDimensionPixelSize(R.dimen.list_spacing);
-		recyclerView.addItemDecoration(new DefaultSpacingItemDecoration(defaultListSpacing));
+		return new DefaultSpacingItemDecoration(defaultListSpacing);
 	}
 
 	protected void initEndlessLoadingListener() {
