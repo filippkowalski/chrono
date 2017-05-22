@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.chrono.R;
-import com.chrono.src.ui.BaseFragment;
 import com.chrono.src.common.constants.ConfigConstants;
 import com.chrono.src.common.utils.VisibilityUtils;
+import com.chrono.src.ui.BaseFragment;
+import com.chrono.src.ui.list.ListViewLogic;
+import com.chrono.src.ui.list.adapters.decoration.DefaultSpacingItemDecoration;
 import com.chrono.src.ui.states.error.ErrorTypeGenerator;
 import com.chrono.src.ui.states.error.ErrorView;
-import com.chrono.src.ui.list.ListViewLogic;
-import com.chrono.src.ui.states.loading.LoadingView;
 import com.chrono.src.ui.states.error.StandardErrorView;
-import com.chrono.src.ui.list.adapters.decoration.DefaultSpacingItemDecoration;
+import com.chrono.src.ui.states.loading.LoadingView;
 import com.mugen.Mugen;
 import com.mugen.MugenCallbacks;
 
@@ -106,7 +106,7 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 		recyclerView.addItemDecoration(getItemDecorator());
 	}
 
-	protected DefaultSpacingItemDecoration getItemDecorator() {
+	protected RecyclerView.ItemDecoration getItemDecorator() {
 		int defaultListSpacing = getResources().getDimensionPixelSize(R.dimen.list_spacing);
 		return new DefaultSpacingItemDecoration(defaultListSpacing);
 	}
