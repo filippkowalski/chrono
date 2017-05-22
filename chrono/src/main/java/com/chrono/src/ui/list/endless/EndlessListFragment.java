@@ -78,13 +78,13 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 		return view;
 	}
 
-	private void initLayout(View view) {
+	protected void initLayout(View view) {
 		containerLayout = (FrameLayout) view.findViewById(R.id.container_layout);
 		recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 		swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_swipe_refresh);
 	}
 
-	private void initStateView() {
+	protected void initStateView() {
 		loadingView = createLoadingView();
 		errorView = createErrorView();
 
@@ -95,7 +95,7 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 		VisibilityUtils.hide(errorView);
 	}
 
-	private void initSwipeToRefresh() {
+	protected void initSwipeToRefresh() {
 		swipeRefreshLayout.setOnRefreshListener(this);
 	}
 
