@@ -14,7 +14,7 @@ import com.chrono.R;
  * Created by Filip Kowalski on 09.05.17.
  */
 
-public class StandardErrorView extends ErrorView {
+public class GenericErrorView extends ErrorView {
 
 	private TextView title;
 	private TextView subtitle;
@@ -22,7 +22,7 @@ public class StandardErrorView extends ErrorView {
 
 	private OnClickListener buttonClickListener;
 
-	public StandardErrorView(Context context, OnClickListener buttonClickListener) {
+	public GenericErrorView(Context context, OnClickListener buttonClickListener) {
 		super(context);
 		this.buttonClickListener = buttonClickListener;
 

@@ -17,7 +17,7 @@ import com.chrono.src.ui.list.ListViewLogic;
 import com.chrono.src.ui.list.adapters.decoration.DefaultSpacingItemDecoration;
 import com.chrono.src.ui.states.error.ErrorTypeGenerator;
 import com.chrono.src.ui.states.error.ErrorView;
-import com.chrono.src.ui.states.error.StandardErrorView;
+import com.chrono.src.ui.states.error.GenericErrorView;
 import com.chrono.src.ui.states.loading.LoadingView;
 import com.mugen.Mugen;
 import com.mugen.MugenCallbacks;
@@ -151,7 +151,7 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 	}
 
 	protected ErrorView createErrorView() {
-		return new StandardErrorView(getContext(), new View.OnClickListener() {
+		return new GenericErrorView(getContext(), new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				onRefresh();
