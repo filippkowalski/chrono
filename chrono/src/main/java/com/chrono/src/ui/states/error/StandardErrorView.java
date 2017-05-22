@@ -14,21 +14,25 @@ import com.chrono.R;
  * Created by Filip Kowalski on 22.05.17.
  */
 
-public class StadardErrorView extends ErrorView {
+public class StandardErrorView extends ErrorView {
 
 	private TextView titleTextView;
 	private TextView subtitleTextView;
+	private Button button;
 
 	private String title;
 	private String subtitle;
+	private String buttonText;
 
 	private OnClickListener buttonClickListener;
 
-	public StadardErrorView(Context context, OnClickListener buttonClickListener, String title, String subtitle) {
+	public StandardErrorView(Context context, OnClickListener buttonClickListener, String title, String subtitle,
+	                         String buttonText) {
 		super(context);
 		this.buttonClickListener = buttonClickListener;
 		this.title = title;
 		this.subtitle = subtitle;
+		this.buttonText = buttonText;
 
 		init(context);
 	}
@@ -45,7 +49,7 @@ public class StadardErrorView extends ErrorView {
 		titleTextView = (TextView) view.findViewById(R.id.text_error_title);
 		subtitleTextView = (TextView) view.findViewById(R.id.text_error_subtitle);
 
-		Button button = (Button) view.findViewById(R.id.button_error);
+		button = (Button) view.findViewById(R.id.button_error);
 		button.setOnClickListener(buttonClickListener);
 
 		initValues();
@@ -54,6 +58,7 @@ public class StadardErrorView extends ErrorView {
 	private void initValues() {
 		titleTextView.setText(title);
 		subtitleTextView.setText(subtitle);
+		button.setText(buttonText);
 	}
 
 	@Override
