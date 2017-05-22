@@ -88,6 +88,9 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 		loadingView = createLoadingView();
 		errorView = createErrorView();
 
+		containerLayout.removeView(loadingView);
+		containerLayout.removeView(errorView);
+
 		containerLayout.addView(loadingView);
 		containerLayout.addView(errorView);
 
