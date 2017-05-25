@@ -180,7 +180,9 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 	@Override
 	public void onRefresh() {
 		data.clear();
-		adapter.notifyDataSetChanged();
+		if (getAdapter() != null) {
+			adapter.notifyDataSetChanged();
+		}
 
 		getPresenter().downloadDataFromApi(0);
 	}
