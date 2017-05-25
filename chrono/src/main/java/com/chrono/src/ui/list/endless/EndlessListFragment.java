@@ -142,6 +142,8 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 
 		swipeRefreshLayout.setRefreshing(false);
 		setRefreshingState(false);
+
+		VisibilityUtils.show(swipeRefreshLayout);
 	}
 
 	@Override
@@ -164,12 +166,14 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 
 	@Override
 	public void showLoadingView(boolean show) {
+		VisibilityUtils.hide(swipeRefreshLayout);
 		VisibilityUtils.show(show, loadingView);
 		setRefreshingState(show);
 	}
 
 	@Override
 	public void showErrorView(@ErrorTypeGenerator.ErrorType int errorType, boolean show) {
+		VisibilityUtils.hide(swipeRefreshLayout);
 		VisibilityUtils.show(show, errorView);
 		if (show) {
 			errorView.setError(errorType);
@@ -180,9 +184,6 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 	@Override
 	public void onRefresh() {
 		data.clear();
-		if (getAdapter() != null) {
-			adapter.notifyDataSetChanged();
-		}
 
 		getPresenter().downloadDataFromApi(0);
 	}
