@@ -1,13 +1,13 @@
 package com.chrono.src.ui.list.endless;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.chrono.R;
 import com.chrono.src.common.constants.ConfigConstants;
@@ -44,13 +44,16 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 
 	protected View loadingView;
 	protected ErrorView errorView;
-	protected FrameLayout containerLayout;
+	protected ViewGroup containerLayout;
 
 	@Getter
 	protected RecyclerView recyclerView;
 
 	@Getter
 	protected SwipeRefreshLayout swipeRefreshLayout;
+
+	@Getter
+	private View view;
 
 	private boolean loadedAllData;
 	private boolean loading;
@@ -63,12 +66,14 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 	private A adapter;
 
 	protected abstract A createAdapter(List<T> data);
+	protected abstract void addItemsToAdapter(List<D> data, boolean firstRun);
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		View view = inflater.inflate(R.layout.layout_list, container, false);
+		view = inflater.inflate(getLayout(), container, false);
 
+		initArguments();
 		initLayout(view);
 		initStateView();
 		initList();
@@ -78,8 +83,17 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 		return view;
 	}
 
+	protected void initArguments() {
+		// not used
+	}
+
+	@LayoutRes
+	protected int getLayout() {
+		return R.layout.layout_list;
+	}
+
 	protected void initLayout(View view) {
-		containerLayout = (FrameLayout) view.findViewById(R.id.container_layout);
+		containerLayout = (ViewGroup) view.findViewById(R.id.container_layout);
 		recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 		swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_swipe_refresh);
 	}
@@ -90,12 +104,6 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 
 		loadingView = createLoadingView();
 		errorView = createErrorView();
-
-		containerLayout.addView(loadingView);
-		containerLayout.addView(errorView);
-
-		VisibilityUtils.hide(loadingView);
-		VisibilityUtils.hide(errorView);
 	}
 
 	protected void initSwipeToRefresh() {
@@ -107,6 +115,9 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 		layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 		recyclerView.setLayoutManager(layoutManager);
 		recyclerView.addItemDecoration(getItemDecorator());
+
+		adapter = createAdapter(data);
+		recyclerView.setAdapter(adapter);
 	}
 
 	protected RecyclerView.ItemDecoration getItemDecorator() {
@@ -119,7 +130,7 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 			@Override
 			public void onLoadMore() {
 				loading = true;
-				getPresenter().downloadDataFromApi(offset += ConfigConstants.LIST_OFFSET_LIMIT);
+				getPresenter().downloadDataFromApi(offset += ConfigConstants.LIST_OFFSET_LIMIT, false);
 			}
 
 			@Override
@@ -135,12 +146,9 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 	}
 
 	@Override
-	public void onDataLoaded(List<D> elements) {
-		data.addAll(elements);
-		adapter = createAdapter(data);
-		recyclerView.setAdapter(adapter);
+	public void onDataLoaded(List<D> elements, boolean firstRun) {
+		addItemsToAdapter(elements, firstRun);
 
-		swipeRefreshLayout.setRefreshing(false);
 		setRefreshingState(false);
 
 		VisibilityUtils.show(swipeRefreshLayout);
@@ -166,16 +174,18 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 
 	@Override
 	public void showLoadingView(boolean show) {
-		VisibilityUtils.hide(swipeRefreshLayout);
-		VisibilityUtils.show(show, loadingView);
+		containerLayout.removeView(loadingView);
+		if (show) {
+			containerLayout.addView(loadingView);
+		}
 		setRefreshingState(show);
 	}
 
 	@Override
 	public void showErrorView(@ErrorTypeGenerator.ErrorType int errorType, boolean show) {
-		VisibilityUtils.hide(swipeRefreshLayout);
-		VisibilityUtils.show(show, errorView);
+		containerLayout.removeView(errorView);
 		if (show) {
+			containerLayout.addView(errorView);
 			errorView.setError(errorType);
 		}
 		setRefreshingState(false);
@@ -183,9 +193,11 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 
 	@Override
 	public void onRefresh() {
+		offset = 0;
 		data.clear();
+		swipeRefreshLayout.setRefreshing(false);
 
-		getPresenter().downloadDataFromApi(0);
+		getPresenter().downloadDataFromApi(0, true);
 	}
 
 	private void setRefreshingState(boolean loadingState) {

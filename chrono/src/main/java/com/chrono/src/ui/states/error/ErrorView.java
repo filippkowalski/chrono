@@ -2,14 +2,14 @@ package com.chrono.src.ui.states.error;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
 /**
  * Created by Filip Kowalski on 10.05.17.
  */
 
-public abstract class ErrorView extends LinearLayout {
+public abstract class ErrorView extends CoordinatorLayout {
 
 	public ErrorView(Context context) {
 		super(context);

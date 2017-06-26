@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ListViewLogic<T> {
 
-	void onDataLoaded(List<T> data);
+	void onDataLoaded(List<T> data, boolean firstRun);
 
 	void setHasLoadedAllData(boolean loadedAllData);
 

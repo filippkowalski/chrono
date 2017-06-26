@@ -1,10 +1,10 @@
 package com.chrono.src.ui.list.endless;
 
-import com.chrono.src.ui.list.DataDownloadLogic;
 import com.chrono.src.Presenter;
-import com.chrono.src.ui.states.error.ErrorTypeGenerator;
-import com.chrono.src.ui.list.ListViewLogic;
 import com.chrono.src.rest.responses.EndlessListResponse;
+import com.chrono.src.ui.list.DataDownloadLogic;
+import com.chrono.src.ui.list.ListViewLogic;
+import com.chrono.src.ui.states.error.ErrorTypeGenerator;
 
 import lombok.Getter;
 import retrofit2.Call;
@@ -27,12 +27,12 @@ public abstract class EndlessListPresenter<D> implements Presenter, DataDownload
 
 	@Override
 	public void onAttach() {
-		downloadDataFromApi(0);
+		downloadDataFromApi(0, true);
 	}
 
 	@Override
-	public void downloadDataFromApi(int offset) {
-		contract.showLoadingView(true);
+	public void downloadDataFromApi(int offset, boolean showLoadingView) {
+		contract.showLoadingView(showLoadingView);
 		contract.showErrorView(ErrorTypeGenerator.TYPE_UNSET, false);
 	}
 
@@ -49,7 +49,7 @@ public abstract class EndlessListPresenter<D> implements Presenter, DataDownload
 				if (listResponse.getCount() == 0) {
 					contract.showErrorView(ErrorTypeGenerator.TYPE_NO_CONTENT, true);
 				} else {
-					contract.onDataLoaded(listResponse.getData());
+					contract.onDataLoaded(listResponse.getData(), listResponse.getPrevious() == null);
 					contract.setHasLoadedAllData(listResponse.getNext() == null);
 				}
 			} else {
@@ -59,8 +59,11 @@ public abstract class EndlessListPresenter<D> implements Presenter, DataDownload
 
 		@Override
 		public void onFailure(Call<EndlessListResponse<D>> call, Throwable t) {
+			t.printStackTrace();
 			contract.showLoadingView(false);
 			contract.showErrorView(ErrorTypeGenerator.TYPE_CONNECTION_PROBLEM, true);
+
+
 		}
 	};
 

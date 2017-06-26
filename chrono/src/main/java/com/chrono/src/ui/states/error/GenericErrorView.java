@@ -2,7 +2,6 @@ package com.chrono.src.ui.states.error;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,8 +29,6 @@ public class GenericErrorView extends ErrorView {
 	}
 
 	private void init(Context context) {
-		setOrientation(VERTICAL);
-		setGravity(Gravity.CENTER);
 		ViewGroup.LayoutParams layoutParams =
 				new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		setLayoutParams(layoutParams);
