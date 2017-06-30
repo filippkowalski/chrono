@@ -29,6 +29,11 @@ public class ChannelsListFragment extends EndlessListFragment<Channel, Channel, 
 	}
 
 	@Override
+	protected void addItemsToAdapter(List<Channel> data, boolean firstRun) {
+
+	}
+
+	@Override
 	public void onItemClick(Channel channel) {
 	}
 }

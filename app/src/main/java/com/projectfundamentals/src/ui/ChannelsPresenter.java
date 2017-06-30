@@ -18,8 +18,8 @@ class ChannelsPresenter extends EndlessListPresenter<Channel> {
     }
 
     @Override
-    public void downloadDataFromApi(int offset) {
-        super.downloadDataFromApi(offset);
+    public void downloadDataFromApi(int offset, boolean showLoadingView) {
+        super.downloadDataFromApi(offset, showLoadingView);
 
         call = RestService.getInstance()
                 .getService()

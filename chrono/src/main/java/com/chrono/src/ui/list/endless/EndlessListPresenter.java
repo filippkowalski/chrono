@@ -59,11 +59,8 @@ public abstract class EndlessListPresenter<D> implements Presenter, DataDownload
 
 		@Override
 		public void onFailure(Call<EndlessListResponse<D>> call, Throwable t) {
-			t.printStackTrace();
 			contract.showLoadingView(false);
 			contract.showErrorView(ErrorTypeGenerator.TYPE_CONNECTION_PROBLEM, true);
-
-
 		}
 	};
 

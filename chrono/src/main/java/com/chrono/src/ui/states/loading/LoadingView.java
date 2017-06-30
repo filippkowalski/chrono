@@ -27,6 +27,13 @@ public class LoadingView extends LinearLayout {
 				new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		setLayoutParams(layoutParams);
 		View view = View.inflate(context, R.layout.layout_loading, this);
+
 		view.setBackgroundColor(Color.WHITE);
+		view.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// do nothing, just fetch click
+			}
+		});
 	}
 }

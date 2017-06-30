@@ -39,6 +39,12 @@ public class GenericErrorView extends ErrorView {
 		subtitle = (TextView) view.findViewById(R.id.text_error_subtitle);
 		button = (Button) view.findViewById(R.id.button_error);
 		button.setOnClickListener(buttonClickListener);
+		view.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// do nothing just fetch click
+			}
+		});
 	}
 
 	public void setError(@ErrorTypeGenerator.ErrorType int errorType) {

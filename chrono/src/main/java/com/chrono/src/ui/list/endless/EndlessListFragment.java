@@ -66,6 +66,7 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 	private A adapter;
 
 	protected abstract A createAdapter(List<T> data);
+
 	protected abstract void addItemsToAdapter(List<D> data, boolean firstRun);
 
 	@Override
@@ -175,7 +176,7 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 	@Override
 	public void showLoadingView(boolean show) {
 		containerLayout.removeView(loadingView);
-		if (show) {
+		if (show && data.isEmpty()) {
 			containerLayout.addView(loadingView);
 		}
 		setRefreshingState(show);
@@ -184,7 +185,7 @@ public abstract class EndlessListFragment<D extends T, T, A extends RecyclerView
 	@Override
 	public void showErrorView(@ErrorTypeGenerator.ErrorType int errorType, boolean show) {
 		containerLayout.removeView(errorView);
-		if (show) {
+		if (show && data.isEmpty()) {
 			containerLayout.addView(errorView);
 			errorView.setError(errorType);
 		}
