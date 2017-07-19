@@ -10,6 +10,7 @@ import java.util.List;
 
 import lombok.Getter;
 
+
 /**
  * Created by Filip Kowalski on 25.02.17.
  */
